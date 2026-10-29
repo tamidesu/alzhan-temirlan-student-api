@@ -4,7 +4,7 @@ Owner: Temirlan Alzhan
 Group: IT2-2307
 Student ID: 38372
 
-Project description: Spring Boot and PostgreSQL CRUD application.
+Project description: Spring Boot and PostgreSQL student records API maintained by Temirlan Alzhan.
 
 ## CRUD feature
 
