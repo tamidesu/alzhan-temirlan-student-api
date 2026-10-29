@@ -1,0 +1,44 @@
+name: alzhan-temirlan-student-api
+
+services:
+  app:
+    build: .
+    image: alzhan-temirlan-student-api:${IMAGE_TAG}
+    container_name: alzhan-temirlan-student-api-app
+    ports:
+      - "127.0.0.1:8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - student-network
+
+  db:
+    image: postgres:17
+    container_name: alzhan-temirlan-student-api-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    networks:
+      - student-network
+
+volumes:
+  pgdata:
+    name: alzhan-temirlan-student-api-pgdata
+
+networks:
+  student-network:
+    name: alzhan-temirlan-student-api-network
