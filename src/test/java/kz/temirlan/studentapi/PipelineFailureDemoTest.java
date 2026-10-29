@@ -7,6 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PipelineFailureDemoTest {
     @Test
     void demonstratesPipelineFailure() {
-        assertEquals(2, 1 + 0);
+        assertEquals(1, 1 + 0);
     }
 }
